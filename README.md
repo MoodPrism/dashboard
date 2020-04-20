@@ -7,5 +7,5 @@
 paste this command to the console, in the repository's root directory 
 
 ```
-num start
+npm start
 ```

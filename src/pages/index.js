@@ -11,8 +11,7 @@ class Index extends Component
         this.state = 
         {
             loading     : true,
-            keys        : 0,
-            user_name   : null,
+            dic         : {}
         }
     }
 
@@ -34,9 +33,7 @@ class Index extends Component
             .then(data => { 
                 this.setState
                 ({
-                    info: data,
-                    user_name : data.name,
-                    keys : data.keys,
+                    dic: data,
                     isLoading: false 
                 });
                 this.intervalID = setTimeout(this.getData.bind(this), 5000); // auto refresh
@@ -45,7 +42,8 @@ class Index extends Component
 
     render()
     {
-        const {user_name, keys} = this.state;
+        const {loading, dic} = this.state;
+        console.log("bro: "+ typeof(dic));
         return(
             <div>
                 <div id="wrapper">
@@ -65,38 +63,44 @@ class Index extends Component
                                 <div class="d-sm-flex align-items-center justify-content-between mb-4">
                                     <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
                                 </div>
-                                <div class="row justify-content-right">
-                                    <div class="col-xl-3 col-md-6 mb-4">
-                                        <div class="card border-left-primary shadow h-100 py-2">
-                                            <div class="card-body">
-                                                <div class="row no-gutters align-items-center">
-                                                    <div class="col mr-2">
-                                                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Username</div>
-                                                        <div class="h5 mb-0 font-weight-bold text-gray-800">{user_name}</div>
+                                
+                                {Object.keys(dic).map((key) => {
+                                    return (
+                                        <div class="row justify-content-right">
+                                            <div class="col-xl-3 col-md-6 mb-4">
+                                                <div class="card border-left-primary shadow h-100 py-2">
+                                                    <div class="card-body">
+                                                        <div class="row no-gutters align-items-center">
+                                                            <div class="col mr-2">
+                                                                <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Username</div>
+                                                                <div class="h5 mb-0 font-weight-bold text-gray-800">{key}</div>
+                                                            </div>
+                                                            <div class="col-auto">
+                                                                <i class="fas fa-user-circle fa-2x text-gray-300"></i>
+                                                            </div>
+                                                        </div>
                                                     </div>
-                                                    <div class="col-auto">
-                                                        <i class="fas fa-user-circle fa-2x text-gray-300"></i>
+                                                </div>
+                                            </div>
+                                            <div class="col-xl-3 col-md-6 mb-4">
+                                                <div class="card border-left-primary shadow h-100 py-2">
+                                                    <div class="card-body">
+                                                        <div class="row no-gutters align-items-center">
+                                                            <div class="col mr-2">
+                                                                <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Number of keys pressed in the last 5 seconds</div>
+                                                                <div class="h5 mb-0 font-weight-bold text-gray-800">{dic[key]}</div>
+                                                            </div>
+                                                            <div class="col-auto">
+                                                                <i class="fas fa-keyboard fa-2x text-gray-300"></i>
+                                                            </div>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="col-xl-3 col-md-6 mb-4">
-                                        <div class="card border-left-primary shadow h-100 py-2">
-                                            <div class="card-body">
-                                                <div class="row no-gutters align-items-center">
-                                                    <div class="col mr-2">
-                                                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Number of keys pressed</div>
-                                                        <div class="h5 mb-0 font-weight-bold text-gray-800">{keys}</div>
-                                                    </div>
-                                                    <div class="col-auto">
-                                                        <i class="fas fa-keyboard fa-2x text-gray-300"></i>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                                    )
+                                })}
+
                                 <div class="row">
                                     <div class="col-xl-8 col-lg-7">
                                         <div class="card shadow mb-4">
@@ -151,26 +155,6 @@ class Index extends Component
                             </div>
                         </div>
                     </footer>
-                </div>
-            </div>
-            <a class="scroll-to-top rounded" href="#page-top">
-                <i class="fas fa-angle-up"></i>
-            </a>
-            <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
-                            <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">×</span>
-                            </button>
-                        </div>
-                        <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
-                        <div class="modal-footer">
-                            <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                            <a class="btn btn-primary" href="login.html">Logout</a>
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>

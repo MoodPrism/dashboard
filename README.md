@@ -15,6 +15,4 @@ npm start
 
 
 
-<img src="https://i.imgur.com/MAAtwTy.png
-" width="500" eight="500">
-
+![Image description](https://i.imgur.com/MAAtwTy.png)

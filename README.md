@@ -12,3 +12,7 @@ npm install
 ```
 npm start
 ```
+
+
+
+![Image description](https://i.imgur.com/MAAtwTy.png)

@@ -4,7 +4,7 @@ pipeline {
 	    stage('Build Docker Image'){
 	    	steps{
 	    		sh 'docker build -t esp10-moodprism-dashboard --no-cache .'
-	    		sh 'docker tag esp10-moodprism 192.168.160.99:5000/esp10-moodprism-dashboard'
+	    		sh 'docker tag esp10-moodprism-dashboard 192.168.160.99:5000/esp10-moodprism-dashboard'
 	    		sh 'docker push 192.168.160.99:5000/esp10-moodprism-dashboard'
 	    	}
 	    }

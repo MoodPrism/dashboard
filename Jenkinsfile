@@ -1,23 +1,29 @@
 pipeline {
 	agent any
 	stages{
-	    stage('Checkout') {
-	      checkout scm
-	    }
 	    stage('Environment') {
-	      sh 'git --version'
-	      echo "Branch: ${env.BRANCH_NAME}"
-	      sh 'docker -v'
-	      sh 'printenv'
+	    	steps{
+	    		sh 'git --version'
+		        echo "Branch: ${env.BRANCH_NAME}"
+		        sh 'docker -v'
+		        sh 'printenv'
+	    	}
+	      
 	    }
 	    stage('Build Docker test'){
-	     sh 'docker build -t react-test -f Dockerfile.test --no-cache .'
+	    	steps{
+	    		sh 'docker build -t react-test -f Dockerfile.test --no-cache .'
+	    	}
 	    }
 	    stage('Docker test'){
-	      sh 'docker run --rm react-test'
+	    	steps{
+	    		sh 'docker run --rm react-test'
+	    	}
 	    }
 	    stage('Clean Docker test'){
-	      sh 'docker rmi react-test'
+	    	steps{
+	    		sh 'docker rmi react-test'
+	    	}
 	    }
 	   /* stage('Deploy'){
 	      if(env.BRANCH_NAME == 'master'){

@@ -13,6 +13,6 @@ pipeline {
 	        sh 'docker push localhost:5000/react-app'
 	        sh 'docker rmi -f react-app localhost:5000/react-app'
 	      }
-	    }
-	}*/
+	    }*/
+	}
 }

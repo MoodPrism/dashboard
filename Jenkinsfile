@@ -1,37 +1,18 @@
 pipeline {
 	agent any
 	stages{
-	    stage('Environment') {
+	    stage('Build Docker Image'){
 	    	steps{
-	    		sh 'git --version'
-		        echo "Branch: ${env.BRANCH_NAME}"
-		        sh 'docker -v'
-		        sh 'printenv'
-	    	}
-	      
-	    }
-	    stage('Build Docker test'){
-	    	steps{
-	    		sh 'docker build -t react-test -f Dockerfile.test --no-cache .'
+	    		sh 'docker build -t esp10-moodprism-dashboard --no-cache .'
+	    		sh 'docker tag esp10-moodprism 192.168.160.99:5000/esp10-moodprism-dashboard'
+	    		sh 'docker push 192.168.160.99:5000/esp10-moodprism'
 	    	}
 	    }
-	    stage('Docker test'){
-	    	steps{
-	    		sh 'docker run --rm react-test'
-	    	}
-	    }
-	    stage('Clean Docker test'){
-	    	steps{
-	    		sh 'docker rmi react-test'
-	    	}
-	    }
-	   /* stage('Deploy'){
-	      if(env.BRANCH_NAME == 'master'){
-	        sh 'docker build -t react-app --no-cache .'
+	 /*   stage('Deploy'){
 	        sh 'docker tag react-app localhost:5000/react-app'
 	        sh 'docker push localhost:5000/react-app'
 	        sh 'docker rmi -f react-app localhost:5000/react-app'
 	      }
-	    }*/
-	}
+	    }
+	}*/
 }

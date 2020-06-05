@@ -1,5 +1,5 @@
 # build environment
-FROM node:13.12.0-alpine as build
+FROM node:12.13.1-alpine as build
 
 # set working directory
 WORKDIR /usr/local/app
@@ -9,8 +9,10 @@ ENV PATH usr/local/app/node_modules/.bin:$PATH
 
 # install app dependencies
 COPY package.json /usr/local/app/package.json
-RUN npm install --silent
-RUN npm install react-scripts@3.4.1 -g --silent
+RUN npm i typescript
+RUN npm i yargs-parser@18.1.2
+RUN npm install 
+RUN npm install react-scripts@3.4.1 -g
 
 # add app
 COPY . /usr/local/app
@@ -19,15 +21,15 @@ COPY . /usr/local/app
 RUN npm run build
 
 # production environment
-FROM nginx:1-16.0-alpine
+#FROM nginx:alpine
 
-COPY --from=build /usr/local/app/build /usr/share/nginx/html
+#COPY --from=build /usr/local/app/build /usr/share/nginx/html
 
-RUN rm /etc/nginx/conf.d/default.conf
+#RUN rm /etc/nginx/conf.d/default.conf
 
-COPY nginx/nginx.conf /etc/nginx/conf.d
+#COPY nginx/nginx.conf /etc/nginx/conf.d
 
-EXPOSE 80
+#EXPOSE 80
 
-CMD ["nginx", "-g", "daemon off;"]
+#CMD ["nginx", "-g", "daemon off;"]
 

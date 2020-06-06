@@ -5,14 +5,14 @@ FROM node:12.13.1-alpine as build
 WORKDIR /usr/local/app
 
 # add `/app/node_modules/.bin` to $PATH
-ENV PATH usr/local/app/node_modules/.bin:$PATH
+ENV PATH /usr/local/app/node_modules/.bin:$PATH
 
 # install app dependencies
 COPY package.json /usr/local/app/package.json
 RUN npm i typescript
 RUN npm i yargs-parser@18.1.2
-RUN npm install 
-RUN npm install react-scripts@3.4.1 -g
+RUN npm install
+RUN npm install react-scripts@3.4.1 -g 
 
 # add app
 COPY . /usr/local/app

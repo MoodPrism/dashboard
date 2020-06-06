@@ -28,7 +28,7 @@ class Index extends Component
     getData = () => 
     {
         this.setState({ isLoading: true });
-        fetch('http://localhost:8080/')
+        fetch('http://192.168.160.103:10080/')
             .then(response => response.json())
             .then(data => { 
                 this.setState

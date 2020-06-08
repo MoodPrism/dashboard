@@ -11,6 +11,8 @@ pipeline {
 	    stage('Deploy'){
 	    	steps{
 		    	sshagent(credentials:['esp10_ssh_runtimeVM']){
+				sh 'ssh -o StrictHostKeyChecking=no esp10@192.168.160.103 docker stop esp10-moodprism-dashboard'
+				sh 'ssh -o StrictHostKeyChecking=no esp10@192.168.160.103 docker image rm 192.168.160.99:5000/esp10-moodprism-dashboard'
 					sh 'ssh -o StrictHostKeyChecking=no esp10@192.168.160.103 docker run --rm -it -d -p 1070:80 --name esp10-moodprism-dashboard 192.168.160.99:5000/esp10-moodprism-dashboard'	 
 	        	}
 	        }
